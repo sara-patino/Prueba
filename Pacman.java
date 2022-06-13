@@ -70,10 +70,12 @@ class Pacman{
 	    	} else if (inputUsuario.equals("f")) {
 			        return false;
 		}
-
-        
         elPersonaje[0][0] = elPersonajeX;
 		elPersonaje[0][1] = elPersonajeY;
+
+        if(elMapa[elPersonajeY][elPersonajeX]==0){
+            elMapa[elPersonajeY][elPersonajeX]=2;
+        } 
 
 		return true;
 	}

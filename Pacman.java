@@ -1,9 +1,7 @@
 import java.util.Scanner;
 class Pacman{	
 
-	
-
-
+	int npcX, npcY;
 	public static void main(String[] args){
 			
 		int[][] unMapa = {
@@ -40,7 +38,10 @@ class Pacman{
 
 		do {
 			imprimeMapa(unMapa, elPersonaje, losNPCs);
-		} while (procesaMovimiento(unMapa,elPersonaje, losNPCs));
+		} while (
+			
+		((procesaMovimiento(unMapa,elPersonaje, losNPCs)))
+		);
 	}
 
 	private static boolean procesaMovimiento(int[][] elMapa, int[][]elPersonaje, int[][] losNPCs){
@@ -67,7 +68,7 @@ class Pacman{
 			elPersonajeY = elPersonajeY - 1;
 		    } else if (inputUsuario.equals("s") && elMapa[elPersonajeY + 1][elPersonajeX] % 2 == 0) {
 			elPersonajeY = elPersonajeY + 1;
-	    	} else if (inputUsuario.equals("f")) {
+	    	} else if (inputUsuario.equals("f") || muerePacman(elPersonaje, losNPCs)) {
 			        return false;
 		}
         elPersonaje[0][0] = elPersonajeX;
@@ -77,13 +78,16 @@ class Pacman{
             elMapa[elPersonajeY][elPersonajeX]=2;
         } 
 
-		return true;
+    
+
+		return (true);
 	}
 
 	private static void mueveNPCs(int[][] elMapa, int[][] losNPCs) {
 		double movimiento;
-		int npcX, npcY;
-
+		
+        int npcX, npcY;
+		
 		for (int unNPC = 0; unNPC < losNPCs.length; unNPC++) {
 			movimiento = Math.random();
 			npcX = losNPCs[unNPC][0];
@@ -99,8 +103,23 @@ class Pacman{
 			}
 			losNPCs[unNPC][0] = npcX;
 			losNPCs[unNPC][1] = npcY;
+			
 		}
 	}
+
+
+private static boolean muerePacman(int[][] elPersonaje, int[][] losNPCs) {
+	for (int unNPC = 0; unNPC < losNPCs.length; unNPC++) {
+		if((elPersonaje[0][0] == losNPCs[unNPC][0]) && (elPersonaje[0][1]== losNPCs[unNPC][1])){
+			System.out.println("MUrIOo daubfjsbda fj sajk bskdb fjksbdjk");
+			return true;
+		}
+		
+	}
+	return true;
+}
+
+
 
     private static void imprimeMapa(int[][] mapaPorImprimir, int[][]elPersonaje, int[][] losNPCs){
 		
@@ -125,6 +144,7 @@ class Pacman{
 			imprimeBordeVertical(true);
 		}		
 		imprimeBordeHorizontal(mapaPorImprimir[0].length);
+		muerePacman(elPersonaje, losNPCs);
 		imprimeStatus(elPersonaje, losNPCs);
 	}
 
@@ -166,6 +186,8 @@ class Pacman{
 		return false;
 	}
 
+   
+ 
 
 	
 	private static void imprimeNPC() {

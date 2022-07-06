@@ -1,0 +1,36 @@
+@startuml
+start
+-"Marco inicia su viaje"
+-"La madre de Marco está a 350 km de distancia"
+while (Marco alcanza a su mamá?)
+->falso;
+-"La madre de Marco avanza 80 km cada día"
+-"Marco avanza un tiempo entre 8 - 10 horas a velocidad de 10 - 15 km/h"
+
+if (Probabilidad de lluvia)
+
+   if (llueve) then (lluvia fuerte) 
+       :velocidad reducida en 75%;
+   else (lluvia normal)
+       :velocidad reducida en 25%;
+   endif 
+
+else (buen clima)
+endif
+
+if (probabilidades del mono)
+
+   if (El mono da problemas) then (Se cansa)
+    :Marco carga al mono y su velocidad se reduce en 10%;
+   else (Se escapa)
+    :Marco va a buscar al mono y su tiempo se reduce 2 horas;
+   endif
+else (El mono no dio problemas)
+endif
+
+
+endwhile
+->verdadero;
+-Marco lo logró
+stop
+@enduml

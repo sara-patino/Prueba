@@ -1,65 +1,76 @@
 import java.util.Scanner;
 class Pacman{	
-
-	int npcX, npcY;
+	
 	public static void main(String[] args){
-			
+		int turno=0;
+        
+        
 		int[][] unMapa = {
-					{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                    {1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
-                    {1,0,1,0,1,0,0,0,1,0,0,1,1,0,0,0,1},
-                    {1,0,1,0,1,0,0,0,1,0,0,1,1,0,0,0,1},
-                    {1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
-                    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                    {1,1,0,1,0,0,0,1,1,1,0,0,1,0,0,1,1},
-                    {1,1,0,1,0,0,0,0,0,0,0,0,1,0,0,1,1},
-                    {1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,1},
-                    {1,0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1},
-                    {1,0,0,1,0,0,0,1,1,1,0,0,1,0,0,0,1},
-                    {1,0,0,1,0,0,0,1,1,1,0,0,1,0,0,0,1},
-                    {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
-                    {1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1},
-                    {1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,1},
-                    {1,0,0,1,0,0,0,1,1,1,0,0,1,1,1,0,1},
-                    {1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
-                    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-		};
+            {1, 1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1},
+            {1, 2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  1,  1,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  1},
+            {1, 2,  1,  1,  1,  1,  2,  1,  1,  1,  1,  1,  2,  1,  1,  2,  1,  1,  1,  1,  1,  2,  1,  1,  1,  1,  2,  1},
+            {1, 2,  1,  1,  1,  1,  2,  1,  1,  1,  1,  1,  2,  1,  1,  2,  1,  1,  1,  1,  1,  2,  1,  1,  1,  1,  2,  1},
+            {1, 2,  1,  1,  1,  1,  2,  1,  1,  1,  1,  1,  2,  1,  1,  2,  1,  1,  1,  1,  1,  2,  1,  1,  1,  1,  2,  1},
+            {1, 4,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  4,  1},
+            {1, 2,  1,  1,  1,  1,  2,  1,  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1,  2,  1,  1,  1,  1,  2,  1},
+            {1, 2,  1,  1,  1,  1,  2,  1,  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1,  2,  1,  1,  1,  1,  2,  1},
+            {1, 2,  2,  2,  2,  2,  2,  1,  2,  2,  2,  2,  2,  1,  1,  2,  2,  2,  2,  2,  1,  2,  2,  2,  2,  2,  2,  1},
+            {1, 1,  1,  1,  1,  1,  2,  1,  1,  1,  1,  1,  0,  1,  1,  0,  1,  1,  1,  1,  1,  2,  1,  1,  1,  1,  1,  1},
+            {1, 1,  1,  1,  1,  1,  2,  1,  1,  1,  1,  1,  0,  1,  1,  0,  1,  1,  1,  1,  1,  2,  1,  1,  1,  1,  1,  1},
+            {1, 1,  1,  1,  1,  1,  2,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  2,  1,  1,  1,  1,  1,  1},
+            {1, 1,  1,  1,  1,  1,  2,  1,  0,  1,  1,  1,  1,  0,  0,  1,  1,  1,  1,  0,  1,  2,  1,  1,  1,  1,  1,  1},
+            {0, 0,  0,  0,  0,  0,  2,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0,  2,  0,  0,  0,  0,  0,  0},
+            {1, 1,  1,  1,  1,  1,  2,  1,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  1,  2,  1,  1,  1,  1,  1,  1},
+            {1, 1,  1,  1,  1,  1,  2,  1,  0,  0,  0,  0,  0,  6,  6,  0,  0,  0,  0,  0,  1,  2,  1,  1,  1,  1,  1,  1},
+            {1, 1,  1,  1,  1,  1,  2,  1,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  1,  2,  1,  1,  1,  1,  1,  1},
+            {1, 1,  1,  1,  1,  1,  2,  1,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  1,  2,  1,  1,  1,  1,  1,  1},
+            {1, 2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  1,  1,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  1},
+            {1, 2,  1,  1,  1,  1,  2,  1,  1,  1,  1,  1,  2,  1,  1,  2,  1,  1,  1,  1,  1,  2,  1,  1,  1,  1,  2,  1},
+            {1, 2,  1,  1,  1,  1,  2,  2,  2,  1,  1,  1,  2,  1,  1,  2,  1,  1,  1,  2,  2,  2,  1,  1,  1,  1,  2,  1},
+            {1, 4,  2,  2,  1,  1,  2,  1,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  1,  2,  1,  1,  2,  2,  4,  1},
+            {1, 1,  1,  2,  1,  1,  2,  1,  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1,  2,  1,  1,  2,  1,  1,  1},
+            {1, 1,  1,  2,  1,  1,  2,  1,  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1,  2,  1,  1,  2,  1,  1,  1},
+            {1, 2,  2,  2,  2,  2,  2,  1,  2,  2,  2,  2,  2,  1,  1,  2,  2,  2,  2,  2,  1,  2,  2,  2,  2,  2,  2,  1},
+            {1, 2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1,  1,  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1},
+            {1, 2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1,  1,  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1},
+            {1, 2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  1},
+            {1, 1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1}
 
-		int[][] elPersonaje = { { 1, 1 } };
+        };
 
+		int[][] elPersonaje = { { 15, 24 } };
         int[][] losNPCs = {
-            { 12, 14 },
-            { 12, 12 },
-            { 14, 14 },
-            { 14, 12 },
+            { 11, 13 },
+            { 12, 13 },
+            { 14, 13 },
+            { 17, 13 },
+
+       
     };
 
-
+            
 		do {
+        
 			imprimeMapa(unMapa, elPersonaje, losNPCs);
-		} while (
-			
-		((procesaMovimiento(unMapa,elPersonaje, losNPCs)))
-		);
+        
+            System.out.println("turno " +turno++);
+
+            
+
+		} while ((procesaMovimiento(unMapa,elPersonaje, losNPCs)) && turno<1000);
 	}
-
 	private static boolean procesaMovimiento(int[][] elMapa, int[][]elPersonaje, int[][] losNPCs){
-
         mueveNPCs(elMapa, losNPCs);
-
 		Scanner entrada = new Scanner(System.in);
 		String inputUsuario;
 		
 		inputUsuario = entrada.nextLine();
-
         int elPersonajeX, elPersonajeY;
 
         
 		
         elPersonajeX = elPersonaje[0][0];
 		elPersonajeY = elPersonaje[0][1];
-
 		    if (inputUsuario.equals("a") && elMapa[elPersonajeY][elPersonajeX - 1] % 2 == 0) {
 			elPersonajeX = elPersonajeX - 1;
 		    } else if (inputUsuario.equals("d") && elMapa[elPersonajeY][elPersonajeX + 1] % 2 == 0) {
@@ -68,26 +79,38 @@ class Pacman{
 			elPersonajeY = elPersonajeY - 1;
 		    } else if (inputUsuario.equals("s") && elMapa[elPersonajeY + 1][elPersonajeX] % 2 == 0) {
 			elPersonajeY = elPersonajeY + 1;
-	    	} else if (inputUsuario.equals("f") || muerePacman(elPersonaje, losNPCs)) {
+	    	} else if (inputUsuario.equals("f")) {
 			        return false;
-		}
+		}else if(muerePacman(elPersonaje, losNPCs)==false){
+                    return false;
+        }
+
+        //mundo circular
+		if (inputUsuario.equals("a") && elPersonajeX==0 && elPersonajeY==13){
+			elPersonajeX=27;
+        }
+
+		if (inputUsuario.equals("d") && elPersonajeX==27 && elPersonajeY==13){
+                elPersonajeX=0;
+        }
+       
         elPersonaje[0][0] = elPersonajeX;
 		elPersonaje[0][1] = elPersonajeY;
 
-        if(elMapa[elPersonajeY][elPersonajeX]==0){
-            elMapa[elPersonajeY][elPersonajeX]=2;
+        if(elMapa[elPersonajeY][elPersonajeX]==2){
+            elMapa[elPersonajeY][elPersonajeX]=0;
         } 
 
-    
+        
 
-		return (true);
+
+
+		return true;
 	}
 
 	private static void mueveNPCs(int[][] elMapa, int[][] losNPCs) {
 		double movimiento;
-		
-        int npcX, npcY;
-		
+		int npcX, npcY;
 		for (int unNPC = 0; unNPC < losNPCs.length; unNPC++) {
 			movimiento = Math.random();
 			npcX = losNPCs[unNPC][0];
@@ -103,24 +126,8 @@ class Pacman{
 			}
 			losNPCs[unNPC][0] = npcX;
 			losNPCs[unNPC][1] = npcY;
-			
 		}
 	}
-
-
-private static boolean muerePacman(int[][] elPersonaje, int[][] losNPCs) {
-	for (int unNPC = 0; unNPC < losNPCs.length; unNPC++) {
-		if((elPersonaje[0][0] == losNPCs[unNPC][0]) && (elPersonaje[0][1]== losNPCs[unNPC][1])){
-			System.out.println("MUrIOo daubfjsbda fj sajk bskdb fjksbdjk");
-			return true;
-		}
-		
-	}
-	return true;
-}
-
-
-
     private static void imprimeMapa(int[][] mapaPorImprimir, int[][]elPersonaje, int[][] losNPCs){
 		
 		imprimeBordeHorizontal(mapaPorImprimir[0].length);
@@ -141,13 +148,12 @@ private static boolean muerePacman(int[][] elPersonaje, int[][] losNPCs) {
 			}
 
 
+        
 			imprimeBordeVertical(true);
 		}		
 		imprimeBordeHorizontal(mapaPorImprimir[0].length);
-		muerePacman(elPersonaje, losNPCs);
 		imprimeStatus(elPersonaje, losNPCs);
 	}
-
 	private static void imprimeStatus(int[][] elPersonaje, int[][] losNPCs) {
 		System.out.println("Personaje en X:[" + elPersonaje[0][0] + "] Y:[" + elPersonaje[0][1] + "]");
 		for (int unNPC = 0; unNPC < losNPCs.length; unNPC++) {
@@ -155,28 +161,33 @@ private static boolean muerePacman(int[][] elPersonaje, int[][] losNPCs) {
 		}
 	}
 
+    private static boolean muerePacman(int[][] elPersonaje, int[][] losNPCs) {
+        for (int unNPC = 0; unNPC < losNPCs.length; unNPC++) {
+            if((elPersonaje[0][0] == losNPCs[unNPC][0]) && (elPersonaje[0][1]== losNPCs[unNPC][1])){
+                System.out.println("Pacman murio :( Se termino el juego");
+                return false;
+            }
+            
+        }
+        return true;
+    }
 	
 	private static void imprimePersonaje(){
 		System.out.print(" :v");
 	}
-
 	private static void imprimeBordeHorizontal(int laLongitud){
-
 		System.out.print("+");
 		for (int j=0;j<laLongitud;j=j+1){
 			System.out.print("---");
 		}
 		System.out.println("+");		
 	}
-
 	private static void imprimeBordeVertical(boolean bordeDerecho){
 		System.out.print("|");
 		if (bordeDerecho) {System.out.println();}
 	}
 	
 	
-
-
 	private static boolean hayNPC(int[][] losNPCs, int i, int j) {
 		for (int unNPC = 0; unNPC < losNPCs.length; unNPC++) {
 			if (losNPCs[unNPC][0] == j && losNPCs[unNPC][1] == i) {
@@ -185,21 +196,12 @@ private static boolean muerePacman(int[][] elPersonaje, int[][] losNPCs) {
 		}
 		return false;
 	}
-
-   
- 
-
 	
 	private static void imprimeNPC() {
-
 		System.out.print("^V^");
-
 	}
-
-
 	private static void imprimeElemento(int elementoDelMapa) {
-		String[] matrizDeElementos = {" . ","[#]","   "};
-
+		String[] matrizDeElementos = {"   ","[#]"," . ","333"," * ","555"," @ "};
 		System.out.print(matrizDeElementos[elementoDelMapa]);
 	}
 	
